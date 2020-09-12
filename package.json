@@ -4,8 +4,7 @@
   "description": "use Stream API provided by Chrome fetch API to implement streaming upload and download",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/index",
-    "prod": "pm2 start backend/index"
+    "start": "node backend/index"
   },
   "keywords": [
     "stream API"

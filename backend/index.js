@@ -31,15 +31,19 @@ server.on('request', (req, res) => {
       // fetch API will hide the response data when request body is not complete
       // not until request stream is closed or res.end() is called by server side will the fetch request promise fullfill
     })
-  } else {
-    res.setHeader('content-type', 'octet-stream');
+  } else if (req.headers[":path"].includes('retrieve')) {
+    res.setHeader('content-type', 'application/octet-stream');
     saveRes = res;
+    // hang the request
+
     // fetch API request promise will fullfill once res.write is called by server side
     // and res.body is readable as readable stream at client side
 
     // once res.write is called, response status code becomes 200 cuz response data is retrieved
     // though it is incomplete
 
+  } else {
+    res.end();
   }
 });
 
