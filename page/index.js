@@ -25,6 +25,7 @@ function init(){
         submit.removeEventListener('click', func);
         controller.enqueue('request complete!');
         controller.close();
+        submit.setAttribute('disabled', true);
       }, {once: true});
     }
   })
@@ -37,7 +38,6 @@ function init(){
   }).then(() => console.log('request stream has been closed'));
   fetch('/retrieve').then(async res => {
     const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
-    console.log(123);
     while(true) {
       const {value, done} = await reader.read();
       if(done) break;
