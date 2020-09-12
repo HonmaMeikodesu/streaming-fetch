@@ -8,7 +8,7 @@ function init(){
     method: 'POST',
   }).headers.has('Content-Type');
   if (!supportsRequestStreams) {
-    output.textContent = `It doesn't look like your browser supports request streams.`;
+    result.textContent = `It doesn't look like your browser supports request streams.`;
     return;
   }
 
