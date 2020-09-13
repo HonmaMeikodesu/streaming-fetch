@@ -29,14 +29,8 @@ function init(){
       }, {once: true});
     }
   })
-  fetch('/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/octet-stream'
-    },
-    body: readbleStream.pipeThrough(new TextEncoderStream())
-  }).then(() => console.log('request stream has been closed'));
-  fetch('/retrieve').then(async res => {
+  const id = Math.random();
+  fetch(`/retrieve/${id}`).then(async res => {
     const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
     while(true) {
       const {value, done} = await reader.read();
@@ -44,5 +38,12 @@ function init(){
       result.append(value);
     }
   })
+  fetch(`/send/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/octet-stream'
+    },
+    body: readbleStream.pipeThrough(new TextEncoderStream())
+  }).then(() => console.log('request stream has been closed'));
 }
 init();
